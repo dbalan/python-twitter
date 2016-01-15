@@ -382,54 +382,6 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(resp[0].screen_name, 'RedScareBot')
 
     @responses.activate
-    def testGetFriends(self):
-        with open('testdata/new/get_friends.json') as f:
-            resp_data = f.read()
-        responses.add(
-            responses.GET,
-            'https://api.twitter.com/1.1/friends/list.json?cursor=-1',
-            body=resp_data,
-            match_querystring=True,
-            status=200)
-        resp = self.api.GetFriends()
-        self.assertTrue(type(resp) is list)
-        self.assertTrue(type(resp[0]) is twitter.User)
-        self.assertEqual(len(resp), 1)
-        self.assertEqual(resp[0].screen_name, '__jcbl__')
-
-    @responses.activate
-    def testGetFriendIDs(self):
-        with open('testdata/new/get_friends_ids.json') as f:
-            resp_data = f.read()
-        responses.add(
-            responses.GET,
-            'https://api.twitter.com/1.1/friends/ids.json?cursor=-1&count=5000',
-            body=resp_data,
-            match_querystring=True,
-            status=200)
-        resp = self.api.GetFriendIDs()
-        self.assertTrue(type(resp) is list)
-        self.assertTrue(type(resp[0]) is int)
-        self.assertEqual(len(resp), 1)
-        self.assertEqual(resp[0], 372018022)
-
-    @responses.activate
-    def testGetFollowerIDs(self):
-        with open('testdata/new/get_follower_ids_paged.json') as f:
-            resp_data = f.read()
-        responses.add(
-            responses.GET,
-            'https://api.twitter.com/1.1/friends/ids.json?cursor=-1&count=5000',
-            body=resp_data,
-            match_querystring=True,
-            status=200)
-        resp = self.api.GetFriendIDs()
-        self.assertTrue(type(resp) is list)
-        self.assertTrue(type(resp[0]) is int)
-        self.assertEqual(len(resp), 1)
-        self.assertEqual(resp[0], 372018022)
-
-    @responses.activate
     def testUsersLookup(self):
         with open('testdata/new/users_lookup.json') as f:
             resp_data = f.read()
