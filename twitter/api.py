@@ -3037,10 +3037,12 @@ class Api(object):
         return [List.NewFromJsonDict(x) for x in data['lists']]
 
     def GetListsList(self,
-                     screen_name,
+                     screen_name=None,
                      user_id=None,
                      reverse=False):
         """Returns all lists the user subscribes to, including their own.
+        If no screen_name or user_id is specified, the data returned will
+        be for the authenticated user.
 
         Twitter endpoint: /lists/list
 
@@ -3048,7 +3050,7 @@ class Api(object):
           screen_name:
             Specifies the screen name of the user for whom to return the
             user_timeline. Helpful for disambiguating when a valid screen
-            name is also a user ID.
+            name is also a user ID. [Optional]
           user_id:
             Specifies the ID of the user for whom to return the
             user_timeline. Helpful for disambiguating when a valid user ID
