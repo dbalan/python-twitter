@@ -743,7 +743,7 @@ class Api(object):
         return Status.NewFromJsonDict(data)
 
     def GetStatusOembed(self,
-                        id=None,
+                        status_id=None,
                         url=None,
                         maxwidth=None,
                         hide_media=False,
@@ -758,7 +758,7 @@ class Api(object):
         Specify tweet by the id or url parameter.
 
         Args:
-          id:
+          status_id:
             The numeric ID of the status you are trying to embed.
           url:
             The url of the status you are trying to embed.
@@ -788,11 +788,11 @@ class Api(object):
 
         parameters = {}
 
-        if id is not None:
+        if status_id is not None:
             try:
-                parameters['id'] = int(id)
+                parameters['id'] = int(status_id)
             except ValueError:
-                raise TwitterError({'message': "'id' must be an integer."})
+                raise TwitterError({'message': "'status_id' must be an integer."})
         elif url is not None:
             parameters['url'] = url
         else:
