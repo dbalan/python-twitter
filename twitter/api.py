@@ -3409,7 +3409,8 @@ class Api(object):
                  screen_name=None,
                  count=None,
                  cursor=-1):
-        """Fetch the sequence of lists for a user.
+        """Fetch the sequence of lists for a user. If neither user_id or scree_name
+        is specified, the data returned will be for the authenticated user.
 
         Twitter endpoint: /lists/ownerships
 
@@ -3440,8 +3441,7 @@ class Api(object):
                 raise TwitterError({'message': "user_id must be an integer"})
         elif screen_name is not None:
             parameters['screen_name'] = screen_name
-        else:
-            raise TwitterError({'message': "Specify user_id or screen_name"})
+        
         if count is not None:
             parameters['count'] = count
 
