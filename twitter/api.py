@@ -2977,7 +2977,9 @@ class Api(object):
                        count=20,
                        cursor=-1,
                        filter_to_owned_lists=False):
-        """Obtain the lists the specified user is a member of.
+        """Obtain the lists the specified user is a member of. If no user_id
+        or screen_name is specified, the data return will be for the authenticated
+        user.
 
         Returns a maximum of 20 lists per page by default.
 
@@ -3028,8 +3030,6 @@ class Api(object):
                 raise TwitterError({'message': "user_id must be an integer"})
         elif screen_name is not None:
             parameters['screen_name'] = screen_name
-        else:
-            raise TwitterError({'message': "Specify user_id or screen_name"})
 
         resp = self._RequestUrl(url, 'GET', data=parameters)
         data = self._ParseAndCheckTwitter(resp.content)
