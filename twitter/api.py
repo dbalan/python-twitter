@@ -695,14 +695,14 @@ class Api(object):
         return [Status.NewFromJsonDict(x) for x in data]
 
     def GetStatus(self,
-                  id,
+                  status_id,
                   trim_user=False,
                   include_my_retweet=True,
                   include_entities=True):
         """Returns a single status message, specified by the id parameter.
 
         Args:
-          id:
+          status_id:
             The numeric ID of the status you are trying to retrieve.
           trim_user:
             When set to True, each tweet returned in a timeline will include
@@ -726,9 +726,9 @@ class Api(object):
         parameters = {}
 
         try:
-            parameters['id'] = int(id)
+            parameters['id'] = int(status_id)
         except ValueError:
-            raise TwitterError({'message': "'id' must be an integer."})
+            raise TwitterError({'message': "'status_id' must be an integer."})
 
         if trim_user:
             parameters['trim_user'] = 1
