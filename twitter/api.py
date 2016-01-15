@@ -3169,8 +3169,8 @@ class Api(object):
         return [Status.NewFromJsonDict(x) for x in data]
 
     def GetListMembers(self,
-                       list_id,
-                       slug,
+                       list_id=None,
+                       slug=None,
                        owner_id=None,
                        owner_screen_name=None,
                        cursor=-1,
@@ -3211,17 +3211,21 @@ class Api(object):
         parameters = {}
         url = '%s/lists/members.json' % (self.base_url)
         parameters['slug'] = slug
-        parameters['list_id'] = list_id
-        if list_id is None:
-            if slug is None:
-                raise TwitterError({'message': "list_id or slug required"})
-            if owner_id is None and not owner_screen_name:
-                raise TwitterError({
-                    'message': "if list_id is not given you have to include an owner to help identify the proper list"})
-        if owner_id:
-            parameters['owner_id'] = owner_id
-        if owner_screen_name:
-            parameters['owner_screen_name'] = owner_screen_name
+        if list_id:
+            try:
+                parameters['list_id'] = list_id
+            except ValueError:
+                raise TwitterError({'message': 'list_id must be an integer'})
+        else:
+            if slug is not None:
+                if not owner_id and not owner_screen_name:
+                    raise TwitterError({
+                        'message': "If slug is given, either owner_id or owner_screen_name is required."})
+            else:
+                parameters['slug'] = slug
+                parameters['owner_id'] = owner_id
+                parameters['owner_screen_name'] = owner_screen_name
+
         if cursor:
             try:
                 parameters['cursor'] = int(cursor)
