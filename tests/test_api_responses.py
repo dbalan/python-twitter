@@ -175,7 +175,7 @@ class ApiTest(unittest.TestCase):
 
     @responses.activate
     def testGetUserSuggestionCategories(self):
-        with open('testdata/new/get_user_suggestion_categories.json') as f:
+        with open('testdata/get_user_suggestion_categories.json') as f:
             resp_data = f.read()
         responses.add(
             responses.GET,
