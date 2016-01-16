@@ -167,6 +167,19 @@ class List(object):
         """
         return self.AsJsonString()
 
+    def __repr__(self):
+        """ A string representation of this twitter.List instance.
+
+        Returns:
+            A string representation of this twitter.List instance with
+            the ID of status, slug and URI.
+        """
+        return "List(ID={id}, Name={slug}, URI={uri}, MembersCount={mem})".format(
+            id=self.id,
+            slug=self.slug,
+            uri=self.uri,
+            mem=self.member_count)
+
     def AsJsonString(self):
         """A JSON string representation of this twitter.List instance.
 
