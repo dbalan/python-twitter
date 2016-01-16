@@ -3032,7 +3032,7 @@ class Api(object):
             parameters['screen_name'] = screen_name
 
         resp = self._RequestUrl(url, 'GET', data=parameters)
-        data = self._ParseAndCheckTwitter(resp.content)
+        data = self._ParseAndCheckTwitter(resp.content.decode('utf-8'))
 
         return [List.NewFromJsonDict(x) for x in data['lists']]
 
