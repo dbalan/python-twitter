@@ -178,6 +178,19 @@ class DirectMessage(object):
         """
         return self.AsJsonString()
 
+    def __repr__(self):
+        """ String representation of this twitter.DirectMessage instance.
+
+        Returns:
+            String representation of this twitter.DirectMessage instance.
+        """
+
+        return "DirectMessage(ID={id}, Sender={sender}, Recipient={recip}, Text={text})".format(
+            id=self.id,
+            sender=self.sender,
+            recip=self.recipient,
+            text=self.text)
+
     def AsJsonString(self):
         """A JSON string representation of this twitter.DirectMessage instance.
 
