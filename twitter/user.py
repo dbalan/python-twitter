@@ -76,6 +76,18 @@ class UserStatus(object):
         """
         return self.AsJsonString()
 
+    def __repr__(self):
+        """ String representation of this twitter.UserStatus instance.
+
+        Returns:
+            String representing twitter.UserStatus instance.
+        """
+        return "UserStatus(ID={id}, Name={name}, Following={following}, FollowedBy={followed})".format(
+            id=self.id,
+            name=self.name,
+            following=self.following,
+            followed=self.followed_by)
+
     def AsJsonString(self):
         """A JSON string representation of this twitter.UserStatus instance.
 
@@ -478,6 +490,17 @@ class User(object):
           A string representation of this twitter.User instance.
         """
         return self.AsJsonString()
+
+    def __repr__(self):
+        """ String representation of this twitter.User instance.
+
+        Returns:
+            String representation of this twitter.User instance
+        """
+        return "User(ID={id}, Screenname={sn}, Name={name})".format(
+            id=self.id,
+            sn=self.screen_name,
+            name=self.name)
 
     def AsJsonString(self):
         """A JSON string representation of this twitter.User instance.
