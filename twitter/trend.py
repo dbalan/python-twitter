@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import json
+
 
 class Trend(object):
     """ A class representing a trending topic """
@@ -29,6 +31,33 @@ class Trend(object):
                    self.url == self.url
         except AttributeError:
             return False
+
+    def AsDict(self):
+        """ A dict representation of this twitter.Trend instance.
+
+        The return value uses the same key names as the JSON representation.
+
+        Return:
+            A dict representing this twitter.Trend instance
+        """
+        data = {}
+        if self.name:
+            data['name'] = self.name
+        if self.query:
+            data['query'] = self.query
+        if self.timestamp:
+            data['timestamp'] = self.timestamp
+        if self.url:
+            data['url'] = self.url
+        return data
+
+    def AsJsonString(self):
+        """ A JSON string representation of this twitter.Trend instance.
+
+        Returns:
+            A JSON string representation of this twitter.Trend instance.
+        """
+        return json.dumps(self.AsDict(), sort_keys=True)
 
     @staticmethod
     def NewFromJsonDict(data, timestamp=None):
