@@ -462,9 +462,9 @@ class Api(object):
         Returns:
           A list with 10 entries. Each entry contains a trend.
         """
-        return self.GetTrendsWoeid(id=1, exclude=exclude)
+        return self.GetTrendsWoeid(woeid=1, exclude=exclude)
 
-    def GetTrendsWoeid(self, id, exclude=None):
+    def GetTrendsWoeid(self, woeid=None, exclude=None):
         """Return the top 10 trending topics for a specific WOEID, if trending
         information is available for it.
 
@@ -479,7 +479,7 @@ class Api(object):
           A list with 10 entries. Each entry contains a trend.
         """
         url = '%s/trends/place.json' % (self.base_url)
-        parameters = {'id': id}
+        parameters = {'id': woeid}
 
         if exclude:
             parameters['exclude'] = exclude

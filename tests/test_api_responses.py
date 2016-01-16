@@ -162,7 +162,7 @@ class ApiTest(unittest.TestCase):
 
     @responses.activate
     def testGetTrendsCurrent(self):
-        with open('testdata/new/get_trends_current.json') as f:
+        with open('testdata/get_trends_current.json') as f:
             resp_data = f.read()
         responses.add(
             responses.GET,
@@ -171,6 +171,19 @@ class ApiTest(unittest.TestCase):
             match_querystring=True,
             status=200)
         resp = self.api.GetTrendsCurrent()
+        self.assertTrue(type(resp[0]) is twitter.Trend)
+
+    @responses.activate
+    def testGetTrendsWoeid(self):
+        with open('testdata/get_trends_woeid.json') as f:
+            resp_data = f.read()
+        responses.add(
+            responses.GET,
+            'https://api.twitter.com/1.1/trends/place.json?id=2459115',
+            body=resp_data,
+            match_querystring=True,
+            status=200)
+        resp = self.api.GetTrendsWoeid(woeid=2459115)
         self.assertTrue(type(resp[0]) is twitter.Trend)
 
     @responses.activate
