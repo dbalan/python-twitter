@@ -75,3 +75,17 @@ class TestTweetLength(unittest.TestCase):
         tweets = self.api._TweetTextWrap(test_tweet)
         self.assertEqual(tweets[0], 't.co went t.co of t.co room t.co returned')
         self.assertEqual(tweets[1], 't.co few minutes later')
+
+    def test_calculated_tweet_length(self):
+        test_tweet = "t.co"
+        self.assertEqual(
+            23,
+            twitter.twitter_utils.calc_expected_status_length(test_tweet))
+        test_tweet = "t.co is 23"
+        self.assertEqual(
+            29,
+            twitter.twitter_utils.calc_expected_status_length(test_tweet))
+        test_tweet = "t.co is t.co"
+        self.assertEqual(
+            50,
+            twitter.twitter_utils.calc_expected_status_length(test_tweet))
