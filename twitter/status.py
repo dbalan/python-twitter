@@ -536,6 +536,7 @@ class Status(object):
       return other and \
              self.created_at == other.created_at and \
              self.id == other.id and \
+             self.id_str == other.id_str and \
              self.text == other.text and \
              self.location == other.location and \
              self.user == other.user and \
@@ -599,6 +600,8 @@ class Status(object):
       data['favorite_count'] = self.favorite_count
     if self.id:
       data['id'] = self.id
+    if self.id_str:
+      data['id_str'] = self.id_str
     if self.text:
       data['text'] = self.text
     if self.lang:
@@ -707,6 +710,7 @@ class Status(object):
                   favorited=data.get('favorited', None),
                   favorite_count=data.get('favorite_count', None),
                   id=data.get('id', None),
+                  id_str=data.get('id_str', None),
                   text=data.get('text', None),
                   location=data.get('location', None),
                   lang=data.get('lang', None),
