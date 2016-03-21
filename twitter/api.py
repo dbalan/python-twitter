@@ -1799,6 +1799,50 @@ class Api(object):
 
     return User.NewFromJsonDict(data)
 
+  def GetUsers(self,
+               user_id=None,
+               screen_name=None,
+               include_entities=True):
+    '''Returns list of users.
+
+    The twitter.Api instance must be authenticated.
+
+    Args:
+      user_id:
+        The list of ids of the users to retrieve. [Optional]
+      screen_name:
+        The list of screen names of the users for whom to return results for.
+        Either a user_id or screen_name is required for this method.
+        [Optional]
+      include_entities:
+        The entities node will be omitted when set to False.
+        [Optional]
+
+    Returns:
+      A [twitter.User] instance representing that users
+    '''
+    if not self.__auth:
+      raise TwitterError({'message': "The twitter.Api instance must be authenticated."})
+
+    url = '%s/users/lookup.json' % (self.base_url)
+    parameters = {}
+    if user_id:
+      parameters['user_id'] = ','.join(user_id) or None
+    elif screen_name:
+      parameters['screen_name'] = ','.join(screen_name) or None
+    else:
+      raise TwitterError({'message': "Specify at least one of user_id or screen_name."})
+    if len(user_id) > 100 or len(screen_name) > 100:
+      raise TwitterError({'message': "More than hundred names are not allowed"})
+
+    if not include_entities:
+      parameters['include_entities'] = 'false'
+
+    json = self._RequestUrl(url, 'GET', data=parameters)
+    data = self._ParseAndCheckTwitter(json.content)
+
+    return [User.NewFromJsonDict(x) for x in data]
+
   def GetDirectMessages(self,
                         since_id=None,
                         max_id=None,
