@@ -1827,14 +1827,15 @@ class Api(object):
     url = '%s/users/lookup.json' % (self.base_url)
     parameters = {}
     if user_id:
+      if len(user_id) > 100:
+        raise TwitterError({'message': "More than hundred names are not allowed"})
       parameters['user_id'] = ','.join(user_id) or None
     elif screen_name:
+      if len(screen_name) > 100:
+        raise TwitterError({'message': "More than hundred names are not allowed"})
       parameters['screen_name'] = ','.join(screen_name) or None
     else:
       raise TwitterError({'message': "Specify at least one of user_id or screen_name."})
-    if len(user_id) > 100 or len(screen_name) > 100:
-      raise TwitterError({'message': "More than hundred names are not allowed"})
-
     if not include_entities:
       parameters['include_entities'] = 'false'
 
